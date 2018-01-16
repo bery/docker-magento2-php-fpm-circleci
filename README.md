@@ -1,1 +1,1 @@
-# docker-magento2-php-fpm-circleci
+# docker-php-fpm-magento2
