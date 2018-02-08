@@ -7,7 +7,7 @@ ENV DOCKERIZE_VERSION v0.6.0
 
 ENV CLOUD_SDK_VERSION 187.0.0
 
-ENV PATH ./google-cloud-sdk/bin:$PATH
+ENV PATH /google-cloud-sdk/bin:$PATH
 RUN set -x && apk update && apk --no-cache add \
         curl \
         python \
@@ -17,7 +17,7 @@ RUN set -x && apk update && apk --no-cache add \
         openssh-client \
         git \
 	wget \
-    && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
+    && cd / && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
     tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
     rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
     ln -s /lib /lib64 && \
