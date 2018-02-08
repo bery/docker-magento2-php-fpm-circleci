@@ -8,7 +8,7 @@ ENV DOCKERIZE_VERSION v0.6.0
 ENV CLOUD_SDK_VERSION 187.0.0
 
 ENV PATH /google-cloud-sdk/bin:$PATH
-RUN apk --no-cache add \
+RUN apk update && apk --no-cache add \
         curl \
         python \
         py-crcmod \
