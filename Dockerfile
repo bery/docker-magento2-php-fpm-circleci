@@ -5,14 +5,27 @@ MAINTAINER Lukas Beranek <lukas@beecom.io>
 
 ENV DOCKERIZE_VERSION v0.6.0
 
-RUN  apt-get update && apt-get install -y lsb-release \
-     wget
+ENV CLOUD_SDK_VERSION 187.0.0
 
-RUN  export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
-     echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
-     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-     apt-get update && apt-get install -y google-cloud-sdk && \
-     wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && \
+ENV PATH /google-cloud-sdk/bin:$PATH
+RUN apk --no-cache add \
+        curl \
+        python \
+        py-crcmod \
+        bash \
+        libc6-compat \
+        openssh-client \
+        git \
+	wget \
+    && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
+    tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
+    rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
+    ln -s /lib /lib64 && \
+    gcloud config set core/disable_usage_reporting true && \
+    gcloud config set component_manager/disable_update_check true && \
+    gcloud config set metrics/environment github_docker_image && \
+    gcloud --version && \
+    wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && \
      tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 RUN set -x \
