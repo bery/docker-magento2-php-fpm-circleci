@@ -7,11 +7,11 @@ ENV DOCKERIZE_VERSION v0.6.0
 
 ENV CLOUD_SDK_VERSION 187.0.0
 
-ENV PATH /google-cloud-sdk/bin:$PATH
-RUN apk update && apk --no-cache add \
+ENV PATH ./google-cloud-sdk/bin:$PATH
+RUN set -x && apk update && apk --no-cache add \
         curl \
         python \
-#        py-crcmod \
+#        py-crcmod \ #available since alpine 3.5
         bash \
         libc6-compat \
         openssh-client \
@@ -52,7 +52,7 @@ RUN set -x \
 #	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
 #	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
 #	&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-#	&& chmod +x /usr/local/bin/gosu \
+#	&& chmod +x /usr/local/bin/gosu \.
 #	&& gosu nobody true \
 #	&& apt-get purge -y --auto-remove ca-certificates wget
 #
