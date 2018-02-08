@@ -11,7 +11,7 @@ ENV PATH /google-cloud-sdk/bin:$PATH
 RUN apk update && apk --no-cache add \
         curl \
         python \
-        py-crcmod \
+#        py-crcmod \
         bash \
         libc6-compat \
         openssh-client \
