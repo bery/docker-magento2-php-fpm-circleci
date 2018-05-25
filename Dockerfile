@@ -1,11 +1,11 @@
 #http://devdocs.magento.com/guides/v2.1/install-gde/system-requirements-tech.html
-FROM xbery/docker-php-fpm-magento2
+FROM beecomprg/docker-php-fpm-magento2
 
 MAINTAINER Lukas Beranek <lukas@beecom.io>
 
 ENV DOCKERIZE_VERSION v0.6.0
 
-ENV CLOUD_SDK_VERSION 187.0.0
+ENV CLOUD_SDK_VERSION 202.0.0
 
 ENV PATH /google-cloud-sdk/bin:$PATH
 RUN set -x && apk update && apk --no-cache add \
@@ -16,6 +16,7 @@ RUN set -x && apk update && apk --no-cache add \
         libc6-compat \
         openssh-client \
         git \
+        patch \
 	wget \
 	mysql-client \
     && cd / && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
